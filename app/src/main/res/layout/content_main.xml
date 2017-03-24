@@ -47,4 +47,10 @@
         android:id="@+id/editTextStudent3"
         tools:ignore="LabelFor" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/screen_background_light_transparent"
+        android:id="@+id/imageView2" />
+
 </LinearLayout>
