@@ -1,5 +1,7 @@
 package css.cis3334.unit9participation_menus;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,8 +29,15 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                String[] addresses = {};
+                String subject = "";
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
 
@@ -68,8 +77,46 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settingsIntent);
+
+        } else if (id == R.id.action_add) {
+            //Add study mate
+            Snackbar.make(getWindow().getDecorView(), "Adding study mates is not available yet.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
+
+        } else if (id == R.id.action_delete) {
+            //Delete study mate
+            Snackbar.make(getWindow().getDecorView(), "Deleting a study mate is not available yet.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
+
+        } else if (id == R.id.action_email) {
+            //Send an email
+            String[] addresses = {};
+            String subject = "";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+
+        } else if (id == R.id.action_sms) {
+            //Send an SMS
+            String message = "";
+            //Uri attachment;
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("smsto:"));  // This ensures only SMS apps respond
+            intent.putExtra("sms_body", message);
+            //intent.putExtra(Intent.EXTRA_STREAM, attachment);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
         }
+
 
         return super.onOptionsItemSelected(item);
     }
