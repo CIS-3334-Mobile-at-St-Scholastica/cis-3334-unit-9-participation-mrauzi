@@ -139,6 +139,45 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settingsIntent);
+
+        } else if (id == R.id.action_add) {
+            //Add study mate
+            Snackbar.make(getWindow().getDecorView(), "Adding study mates is not available yet.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
+
+        } else if (id == R.id.action_delete) {
+            //Delete study mate
+            Snackbar.make(getWindow().getDecorView(), "Deleting a study mate is not available yet.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
+
+        } else if (id == R.id.action_email) {
+            //Send an email
+            String[] addresses = {};
+            String subject = "";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+
+        } else if (id == R.id.action_sms) {
+            //Send an SMS
+            String message = "";
+            //Uri attachment;
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("smsto:"));  // This ensures only SMS apps respond
+            intent.putExtra("sms_body", message);
+            //intent.putExtra(Intent.EXTRA_STREAM, attachment);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
